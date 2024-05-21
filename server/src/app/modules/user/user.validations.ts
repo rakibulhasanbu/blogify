@@ -26,9 +26,9 @@ const userSchema = z.object({
     password: z
       .string()
       .min(6, { message: "Password must be at least 6 characters long." }),
-    bio: z.string(),
-    profession: z.string(),
-    address: z.string(),
+    bio: z.string().optional(),
+    profession: z.string().optional(),
+    address: z.string().optional(),
   }),
 });
 

@@ -21,7 +21,7 @@ const getBlogsFromDB = async (query: any) => {
   const {
     searchTerm,
     page = 1,
-    limit = 10,
+    limit = 30,
     sortBy,
     sortOrder,
     availability,

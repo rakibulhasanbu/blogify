@@ -21,7 +21,7 @@ model User {
 
 model Blog {
   id                   String       @id @default(uuid())
-  authorId    String   @unique
+  authorId    String
   title       String
   description          String
   imageUrl String
