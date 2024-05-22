@@ -3,7 +3,7 @@
 import { CgProfile } from "react-icons/cg";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MdDashboard } from "react-icons/md";
+import { MdDashboard, MdPostAdd } from "react-icons/md";
 import { TbLogs } from "react-icons/tb";
 
 const Sidebar = () => {
@@ -11,7 +11,7 @@ const Sidebar = () => {
 
     const sidebarLinks = [
         {
-            path: "/",
+            path: "/dashboard",
             Icon: MdDashboard,
             label: "dashboard",
             relativePath: "",
@@ -26,6 +26,12 @@ const Sidebar = () => {
             path: "/dashboard/blogs",
             Icon: TbLogs,
             label: "Blogs",
+            relativePath: "",
+        },
+        {
+            path: "/dashboard/add-blog",
+            Icon: MdPostAdd,
+            label: "Add Blog",
             relativePath: "",
         },
     ];

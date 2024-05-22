@@ -58,6 +58,15 @@ const getBlogsFromDB = async (query: any) => {
   // Retrieve paginated and filtered found items
   const foundItems = await prisma.blog.findMany({
     where,
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
     orderBy,
     take: Number(limit),
     skip: (Number(page) - 1) * Number(limit),
@@ -75,6 +84,37 @@ const getBlogsFromDB = async (query: any) => {
   };
 
   return responseData;
+};
+
+const getBlogByIdFromDB = async (id: any) => {
+  // Update the Blog status
+  const blog = await prisma.blog.findFirst({
+    where: {
+      id: id,
+    },
+  });
+
+  return blog;
+};
+
+const getMyBlogFromDB = async (user: any) => {
+  // Update the Blog status
+  const blog = await prisma.blog.findMany({
+    where: {
+      authorId: user?.userId,
+    },
+    include: {
+      author: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+
+  return blog;
 };
 
 const UpdateBlogByIdIntoDB = async (id: any, params: any) => {
@@ -108,6 +148,8 @@ const deleteBlogByIdFromDB = async (id: string) => {
 export const BlogService = {
   createBlogIntoBD,
   getBlogsFromDB,
+  getMyBlogFromDB,
+  getBlogByIdFromDB,
   UpdateBlogByIdIntoDB,
   deleteBlogByIdFromDB,
 };

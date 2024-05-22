@@ -21,9 +21,12 @@ const Navbar = () => {
                     <h2 className="font-bold text-3xl">Blogify</h2>
                 </Link>
                 <div className='flex items-center gap-8 font-medium'>
-                    <Link href={'/dashboard'}>
-                        <h3>Dashboard</h3>
-                    </Link>
+                    {
+                        user?.email &&
+                        <Link href={'/dashboard'}>
+                            <h3>Dashboard</h3>
+                        </Link>
+                    }
                     {/* <h3>{user?.userName}</h3> */}
                     {
                         user?.email ?

@@ -38,6 +38,15 @@ const getProfileFromDB = async (user: any) => {
     where: {
       userId: user.userId,
     },
+    include: {
+      user: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
   });
   return userProfileData;
 };

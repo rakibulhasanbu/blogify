@@ -1,8 +1,11 @@
+'use client'
+
+import ProtectedRoute from "../components/shared/ProtectedRoute";
 import Sidebar from "../components/shared/Sidebar";
 
 const Layout = ({ children }: { children: any }) => {
     return (
-        <>
+        <ProtectedRoute>
             <div className='py-2 lg:py-5 flex'>
                 <div className='hidden lg:block w-0 lg:w-1/6 h-[82.5dvh] overflow-auto '>
                     <Sidebar />
@@ -11,7 +14,7 @@ const Layout = ({ children }: { children: any }) => {
                     {children}
                 </div>
             </div>
-        </>
+        </ProtectedRoute>
     );
 };
 

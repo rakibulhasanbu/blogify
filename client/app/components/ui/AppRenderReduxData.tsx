@@ -35,10 +35,10 @@ const AppRenderReduxData = ({
       <AppErrorComponent />
     );
 
-  } else if ((data as any)?.data?.data && isEmptyComponentHave) {
+  } else if ((data as any)?.data && isEmptyComponentHave) {
     content = showData(data?.data);
-  } else if ((data as any)?.data?.data?.length > 0) {
-    content = showData(data?.data);
+  } else if ((data as any)?.data?.length > 0) {
+    content = showData(data);
   } else {
     content = (
       <Empty description="No Data Found" className="min-h-[70dvh] flex flex-col text-xl font-medium gap-4 items-center justify-center" />

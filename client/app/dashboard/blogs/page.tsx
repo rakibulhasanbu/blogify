@@ -1,8 +1,9 @@
 'use client'
 
+
 import AppModal from "@/app/components/ui/AppModal";
 import AppTable from "@/app/components/ui/AppTable";
-import { useDeleteBlogMutation, useGetBlogsQuery } from "@/app/states/features/blogs/blogApi";
+import { useDeleteBlogMutation, useGetBlogsQuery, useGetMyBlogsQuery } from "@/app/states/features/blogs/blogApi";
 import { formatDate } from "@/app/utils/formateDate";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -30,15 +31,15 @@ const Blogs = () => {
         return queryString;
     }, [page, search]);
 
-    const infoQuery = useGetBlogsQuery(queryString);
+    const infoQuery = useGetMyBlogsQuery(queryString);
 
-    const [deleteProduct, { isError, error, isLoading, isSuccess }] = useDeleteBlogMutation();
+    const [deleteBlog, { isError, error, isLoading, isSuccess }] = useDeleteBlogMutation();
 
     useEffect(() => {
         if (isError) {
-            toast.error("Product delete unsuccessful!");
+            toast.error("Blog delete unsuccessful!");
         } else if (!isLoading && isSuccess) {
-            toast.success('Product deleted Successful!')
+            toast.success('Blog deleted Successful!')
         }
     }, [isError, error, isLoading, isSuccess])
 
@@ -47,9 +48,12 @@ const Blogs = () => {
             title: 'Title',
             dataIndex: 'title',
             className: "min-w-[150px]",
-            render: (name: string) => {
+            render: (name: string, record: any) => {
                 return (
-                    <p className="line-clamp-1">{name}</p>
+                    <div className='flex items-center gap-1'>
+                        <img src={record?.imageUrl} alt="" className="rounded-md object-cover w-16 h-10" />
+                        <p className="line-clamp-1">{name}</p>
+                    </div>
                 )
             }
         },
@@ -59,7 +63,17 @@ const Blogs = () => {
             className: "min-w-[205px]",
             render: (description: string) => {
                 return (
-                    <p className="line-clamp-1">{description}</p>
+                    <p className="line-clamp-1 max-w-[30dvw]">{description}</p>
+                )
+            }
+        },
+        {
+            title: 'Author Name',
+            dataIndex: 'author',
+            className: "min-w-[105px]",
+            render: (author: any) => {
+                return (
+                    <p className="line-clamp-1">{author?.name}</p>
                 )
             }
         },
@@ -79,21 +93,19 @@ const Blogs = () => {
             className: "min-w-[185px]",
             render: (_text: any, record: any) => {
                 return (
-                    <div className='flex items-center gap-4'>
-                        <button className="text-xs font-medium px-4 py-1 rounded-full bg-[#E6E6E7] hover:text-gray-800 "><Link href={`/blog/${record?._id}`}>Edit Blog</Link></button>
+                    <div className='flex items-center gap-8'>
+                        <button className="text-xs font-medium px-4 py-1 rounded-full bg-[#E6E6E7] hover:text-gray-800 "><Link href={`/dashboard/edit-blog/${record?.id}`}>Edit Blog</Link></button>
 
                         <AppModal button={
                             <button className="text-xs text-white px-4 py-1 rounded-full w-full bg-red">Remove</button>}
                             cancelButtonTitle="No, Don’t"
                             primaryButtonTitle="Yes. Remove"
-                            primaryButtonAction={() => deleteProduct(record?._id)}
+                            primaryButtonAction={() => deleteBlog(record?.id)}
                         >
                             <div className='max-w-80'>
-                                <p className="text-center text-[#828282] pt-4 text-lg">Are you sure  Remove <span className="text-textDark font-medium">{record?.name}</span> from the user list?</p>
+                                <p className="text-center text-[#828282] pt-4 text-lg">Are you sure  Remove <span className="text-textDark font-medium">{record?.title}</span> from the blog list?</p>
                             </div>
                         </AppModal>
-
-
                     </div>
                 )
             }
@@ -109,7 +121,7 @@ const Blogs = () => {
                 onInputChange={(text) => setSearch(text)}
                 headerText="Blogs List"
                 button={
-                    <Link href={"/add-blog"}>
+                    <Link href={"/dashboard/add-blog"}>
                         <button className="roundedBtn">Add New Blog</button>
                     </Link>
                 }

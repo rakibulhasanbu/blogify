@@ -16,6 +16,10 @@ router.post(
 
 router.get("/blogs", BlogController.getBlogs);
 
+router.get("/my-blogs", auth(), BlogController.getMyBlogs);
+
+router.get("/blog/:blogId", BlogController.getBlogById);
+
 router.put(
   "/blog/:blogId",
   validateRequest(BlogValidationSchemas.blogUpdateSchema),

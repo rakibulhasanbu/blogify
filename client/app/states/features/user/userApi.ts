@@ -3,40 +3,20 @@ import { tagTypes } from "../../api/tagTypesList";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getSellers: builder.query({
-      query: (query) => {
+    getProfile: builder.query({
+      query: () => {
         return {
-          url: `/sellers?${query}`,
+          url: `/profile`,
         };
       },
       providesTags: [tagTypes.user],
     }),
-    getManagers: builder.query({
-      query: (query) => {
-        return {
-          url: `/managers?${query}`,
-        };
-      },
-      providesTags: [tagTypes.user],
-    }),
-    getUserById: builder.query({
-      query: (id) => `/users/${id}`,
-    }),
-    addUser: builder.mutation({
+
+    editProfile: builder.mutation({
       query: (info) => {
         return {
-          url: "/users",
-          method: "POST",
-          body: info,
-        };
-      },
-      invalidatesTags: [tagTypes.user],
-    }),
-    editUser: builder.mutation({
-      query: (info) => {
-        return {
-          url: `/users/${info.id}`,
-          method: "PATCH",
+          url: `/profile`,
+          method: "PUT",
           body: info,
         };
       },
@@ -51,24 +31,11 @@ export const userApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [tagTypes.user],
     }),
-    getOverview: builder.query({
-      query: () => {
-        return {
-          url: `/users/super-admin/overview`,
-          method: "GET",
-        };
-      },
-      providesTags: [tagTypes.user],
-    }),
   }),
 });
 
 export const {
-  useGetSellersQuery,
-  useGetManagersQuery,
-  useAddUserMutation,
+  useGetProfileQuery,
+  useEditProfileMutation,
   useDeleteUserMutation,
-  useEditUserMutation,
-  useGetUserByIdQuery,
-  useGetOverviewQuery,
 } = userApi;

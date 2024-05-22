@@ -71,7 +71,7 @@ const AppModal = ({
                       cancelButtonAction();
                     }
                   }}
-                  className="roundedBtn text-textDark bg-[#E8E8E8] hover:bg-[#e6dada] text-sm"
+                  className="roundedBtn text-textGrey bg-[#E8E8E8] hover:bg-[#e6dada] text-sm"
                 >
                   {cancelButtonTitle}
                 </button>

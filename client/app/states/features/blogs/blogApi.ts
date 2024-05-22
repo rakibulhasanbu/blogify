@@ -11,6 +11,14 @@ const BlogApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.blog],
     }),
 
+    getMyBlogs: builder.query({
+      query: () => ({
+        url: `/my-blogs`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.blog],
+    }),
+
     getBlogById: builder.query({
       query: (id) => ({
         url: `/blog/${id}`,
@@ -43,23 +51,14 @@ const BlogApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.blog],
     }),
-
-    bulkDeleteBlog: builder.mutation({
-      query: (data) => ({
-        url: "/bulk-delete",
-        method: "DELETE",
-        body: data,
-      }),
-      invalidatesTags: [tagTypes.blog],
-    }),
   }),
 });
 
 export const {
   useGetBlogsQuery,
+  useGetMyBlogsQuery,
   useGetBlogByIdQuery,
   useAddBlogMutation,
   useUpdatedBlogMutation,
   useDeleteBlogMutation,
-  useBulkDeleteBlogMutation,
 } = BlogApi;
