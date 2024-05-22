@@ -2,11 +2,11 @@
 
 ## blogify app client Live Link
 
-### https://sports-market-cart.vercel.app/auth/sign-in
+### https://blogify1.vercel.app/
 
 ## blogify app server Live Link
 
-### https://sports-market-server-cart.vercel.app/
+### https://blog-server-gamma-wine.vercel.app/
 
 ## Run the client application locally
 

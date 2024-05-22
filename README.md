@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h2 align="center">Blogify app</h2>
 
-## Getting Started
+## blogify app client Live Link
 
-First, run the development server:
+### https://blogify1.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Run the client application locally
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If you want to run the client locally on your computer, firstly clone this project, go to the right path and open to the terminal then run `npm install` and then run the command `npm run build` to convert the TypeScript code to JavaScript code. And start the client with `npm run dev` command.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Blog System Server
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+This server involves creating a blog system using TypeScript and Express.js, with Prisma ORM for database interaction, specifically with a PostgreSQL database. Authentication is handled through JSON Web Tokens (JWT). The system is designed around three main models: User, Blog and UserProfile, each with specific fields such as ids, names, timestamps, and relationships to other models.
 
-## Learn More
+## Server Live Link
 
-To learn more about Next.js, take a look at the following resources:
+### https://blog-server-gamma-wine.vercel.app/
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Run the server application locally
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Clone this repository: `git clone <repository_url>`
+- Install dependencies: `npm install`
+- Set up the environment variables by creating a `.env` file.
+- Run the database migrations: `npx prisma migrate dev`
+- Start the server: `npm run dev`
