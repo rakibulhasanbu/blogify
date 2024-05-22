@@ -14,14 +14,12 @@ interface FormData {
     email: string;
     password: string;
     confirmPassword: string;
-    phoneNumber: string;
     accept?: unknown;
 }
 
 const SignUp = () => {
     const {
         register,
-        // control,
         handleSubmit,
         formState: { errors },
     } = useForm<FormData>();
@@ -41,7 +39,7 @@ const SignUp = () => {
         }
         const { name, password, email } = data
         const submittedData = {
-            role: "seller", password, email, name
+            password, email, name
         }
         registerUser(submittedData).unwrap()
             .then((res: any) => {
@@ -50,7 +48,7 @@ const SignUp = () => {
                     toast.error(res?.message || "something wrong");
                 } else {
                     toast.success(res?.message || "Successfully Registered");
-                    router.push(`/`);
+                    router.push(`/auth/sign-in`);
                 }
             })
             .catch((res: any) => {

@@ -26,10 +26,8 @@ export default async function Home() {
           {posts?.data?.data?.map((post: any) => (
             <article key={post?.id} className="flex max-w-xl flex-col items-start justify-between">
               <img src={post?.imageUrl} alt="" className="rounded-xl max-h-56 w-full object-cover mb-4" />
-              <div className="flex items-center gap-x-4 text-xs">
-                <time dateTime={post?.datetime} className="text-gray-500">
-                  {formatDate(post?.createdAt)}
-                </time>
+              <div className="flex items-center gap-x-4 text-xs text-gray-500">
+                {formatDate(post?.createdAt)}
               </div>
               <div className="group relative">
                 <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
