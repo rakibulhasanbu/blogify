@@ -8,7 +8,7 @@ import { config } from "../config";
 const auth = () => {
   return async (
     req: Request & { user?: any },
-    res: Response,
+    _res: Response,
     next: NextFunction
   ) => {
     try {

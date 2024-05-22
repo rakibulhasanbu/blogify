@@ -4,9 +4,9 @@ import handleZodError from "../errors/handleZodError";
 
 const globalErrorHandler = (
   error: any,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ) => {
   let statusCode = error.statusCode || 500;
   let message = error.message || "Something went wrong!";

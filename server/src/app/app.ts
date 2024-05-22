@@ -7,7 +7,7 @@ import globalErrorHandler from "./middlewares/globalErrorHandler";
 const app: Application = express();
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://sports-market-cart.vercel.app"],
+    origin: ["http://localhost:3000", "https://blogify1.vercel.app"],
     credentials: true,
   })
 );
@@ -16,10 +16,10 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req: Request, res: Response) => {
+app.get("/", (_req: Request, res: Response) => {
   res.send({
     success: true,
-    message: "Flat share System server is running perfectly",
+    message: "Blog server is running perfectly",
   });
 });
 
