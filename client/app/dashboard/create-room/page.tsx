@@ -35,11 +35,16 @@ const AddBlog = () => {
     await addBlog(submitData)
       .unwrap()
       .then((res: { success: any; message: any }) => {
+        if (!res.success) {
+          toast.error(res.message || "Something went wrong");
+        }
         toast.success("Blog are added successfully!");
         router.push("/dashboard/blogs");
       })
       .catch((res: { success: any; message: any }) => {
-        toast.error(res.message || "Something went wrong");
+        if (!res.success) {
+          toast.error(res.message || "Something went wrong");
+        }
       });
   };
 
@@ -59,39 +64,19 @@ const AddBlog = () => {
         <AppLoading />
       ) : (
         <div className="bg-[#F8F8F8] p-3 md:p-4 rounded-2xl mt-4">
-          <h1 className="md:text-xl font-medium">Add New Blog</h1>
+          <h1 className="md:text-xl font-medium">Add New Room</h1>
           <form
             className="space-y-2 md:space-y-4 pt-4 pb-2"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="grid grid-cols-2 md:grid-cols-2 gap-2 md:gap-4">
-              <AppFormInput
-                name="title"
-                required={true}
-                register={register}
-                type="text"
-                label="Blog Title"
-                error={errors.title}
-              />
-
-              <AppFormInput
-                name="description"
-                required={true}
-                register={register}
-                type="text"
-                label="Blog description"
-                error={errors.description}
-              />
-
-              <AppFormInput
-                name="imageUrl"
-                required={true}
-                register={register}
-                type="text"
-                label="Blog imageUrl"
-                error={errors.imageUrl}
-              />
-            </div>
+            <AppFormInput
+              name="title"
+              required={true}
+              register={register}
+              type="text"
+              label="Room Name"
+              error={errors.title}
+            />
 
             <div className="flex items-center justify-center pt-4">
               {isLoading ? (
@@ -100,7 +85,7 @@ const AddBlog = () => {
                 </button>
               ) : (
                 <button type="submit" className="roundedBtn cursor-pointer">
-                  Add Blog
+                  Add Room
                 </button>
               )}
             </div>
