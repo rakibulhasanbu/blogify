@@ -1,19 +1,12 @@
-import { config } from "@/config";
-import { formatDate } from "./utils/formateDate";
+"use client"
+
 import ChatHome from "./components/home/ChatHome";
+import { useGetAllRoomsQuery } from "./states/features/rooms/roomsApi";
 
-const getPosts = async () => {
-  const res = await fetch(`${config.baseUrl}/blogs`, { cache: "no-cache" });
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-  return await res.json();
-};
+export default function Home() {
+  const { data: rooms } = useGetAllRoomsQuery("")
 
-export default async function Home() {
-  const posts = await getPosts();
-
-  const rooms = [
+  const room2s = [
     {
       id: 1,
       roomName: "chat1",
@@ -54,7 +47,7 @@ export default async function Home() {
         </div>
 
         <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {rooms.map((items) => (
+          {rooms?.data?.map((items: any) => (
             <ChatHome key={items.id} {...items} />
           ))}
         </div>

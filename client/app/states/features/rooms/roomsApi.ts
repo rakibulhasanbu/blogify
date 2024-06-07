@@ -8,18 +8,56 @@ const roomsApi = baseApi.injectEndpoints({
         url: `/rooms${filterOptions ? `?${filterOptions}` : ""}`,
         method: "GET",
       }),
-      providesTags: [tagTypes.blog],
+      providesTags: [tagTypes.rooms],
+    }),
+
+    getAllRooms: builder.query({
+      query: () => ({
+        url: `/my-rooms`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.rooms],
+    }),
+    getSingleRooms: builder.query({
+      query: (id) => ({
+        url: `/rooms/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.rooms],
     }),
 
     addRoom: builder.mutation({
       query: (roomData) => ({
-        url: "/room",
+        url: "/rooms",
         method: "POST",
         body: roomData,
       }),
-      invalidatesTags: [tagTypes.blog],
+      invalidatesTags: [tagTypes.rooms],
+    }),
+
+    addMessage: builder.mutation({
+      query: (roomData) => ({
+        url: `/roomsMessage/${roomData?.id}`,
+        method: "PUT",
+        body: roomData?.data,
+      }),
+      invalidatesTags: [tagTypes.rooms],
+    }),
+    deleteRoom: builder.mutation({
+      query: (id) => ({
+        url: `/rooms/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.rooms],
     }),
   }),
 });
 
-export const {} = roomsApi;
+export const {
+  useGetAllRoomsQuery,
+  useAddRoomMutation,
+  useGetRoomsQuery,
+  useDeleteRoomMutation,
+  useGetSingleRoomsQuery,
+  useAddMessageMutation,
+} = roomsApi;

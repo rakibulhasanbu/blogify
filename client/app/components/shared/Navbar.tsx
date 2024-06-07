@@ -34,7 +34,7 @@ const Navbar = () => {
           {/* <h3>{user?.userName}</h3> */}
           {user?.email ? (
             <button
-              className="appBtn bg-[#3572EF]/80 hover:bg-[#050C9C]"
+              className="appBtn "
               onClick={handleLogout}
             >
               Logout

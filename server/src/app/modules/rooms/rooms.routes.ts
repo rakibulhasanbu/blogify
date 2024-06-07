@@ -16,7 +16,7 @@ router.post(
 
 router.get("/rooms", RoomsController.getRooms);
 
-router.get("/my-rooms", auth(), RoomsController.getMyRooms);
+router.get("/my-rooms", RoomsController.getMyRooms);
 
 router.get("/rooms/:roomId", RoomsController.getRoomsById);
 

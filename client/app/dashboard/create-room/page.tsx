@@ -2,7 +2,7 @@
 
 import AppFormInput from "@/app/components/ui/AppFormInput";
 import AppLoading from "@/app/components/ui/AppLoading";
-import { useAddBlogMutation } from "@/app/states/features/blogs/blogApi";
+import { useAddRoomMutation } from "@/app/states/features/rooms/roomsApi";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -11,14 +11,13 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 
 type TInputs = {
-  title: string;
-  description: string;
-  imageUrl: string;
+  name: string;
+  coverUrl: string;
 };
 
 const AddBlog = () => {
   const router = useRouter();
-  const [addBlog, { isLoading }] = useAddBlogMutation();
+  const [addBlog, { isLoading }] = useAddRoomMutation();
 
   const {
     register,
@@ -27,19 +26,16 @@ const AddBlog = () => {
   } = useForm<TInputs>();
 
   const onSubmit: SubmitHandler<TInputs> = async (data) => {
-    const submitData = {
-      ...data,
-      releaseDate: new Date(),
-    };
-    console.log(submitData);
-    await addBlog(submitData)
+
+    console.log(data);
+    await addBlog(data)
       .unwrap()
       .then((res: { success: any; message: any }) => {
         if (!res.success) {
           toast.error(res.message || "Something went wrong");
         }
-        toast.success("Blog are added successfully!");
-        router.push("/dashboard/blogs");
+        toast.success("Rooms are added successfully!");
+        router.push("/dashboard/rooms");
       })
       .catch((res: { success: any; message: any }) => {
         if (!res.success) {
@@ -51,7 +47,7 @@ const AddBlog = () => {
   return (
     <>
       <Link
-        href={"/dashboard/blogs"}
+        href={"/dashboard/rooms"}
         className="text-xl 2xl:text-2xl w-fit font-medium text-[#343A40] flex items-center gap-2"
       >
         <div className="rounded-full bg-[#F8F8F8] flex items-center justify-center size-10 lg:size-12">
@@ -70,12 +66,20 @@ const AddBlog = () => {
             onSubmit={handleSubmit(onSubmit)}
           >
             <AppFormInput
-              name="title"
+              name="name"
               required={true}
               register={register}
               type="text"
               label="Room Name"
-              error={errors.title}
+              error={errors?.name}
+            />
+            <AppFormInput
+              name="coverUrl"
+              required={true}
+              register={register}
+              type="text"
+              label="Cover Url"
+              error={errors?.coverUrl}
             />
 
             <div className="flex items-center justify-center pt-4">

@@ -133,6 +133,15 @@ const UpdateRoomsMessageByIdIntoDB = async (
 ) => {
   const { name, coverUrl, messages } = params;
   // console.log(messages);
+
+  const existingUser = await prisma.user.findUnique({
+    where: { id: user.userId },
+  });
+
+  if (!existingUser) {
+    throw new Error("User not found");
+  }
+
   // Find the room to check for existing participants and messages
   const room = await prisma.room.findUnique({
     where: {
@@ -165,7 +174,6 @@ const UpdateRoomsMessageByIdIntoDB = async (
       },
     },
   };
-  // console.log(updateData);
 
   if (name) {
     updateData.name = name;
@@ -186,7 +194,7 @@ const UpdateRoomsMessageByIdIntoDB = async (
       },
     };
   }
-  // console.log(updateData);
+
   // Update the room with the new data
   const updatedRoom = await prisma.room.update({
     where: {
